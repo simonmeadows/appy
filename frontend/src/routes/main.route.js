@@ -1,6 +1,6 @@
 import Main from '../components/views/main/Main.vue'
 
-import Dashboard from '../components/views/dashboard/Dashboard.vue'
+import Spectrum from '../components/views/spectrum/Spectrum.vue'
 
 import Profile from '../components/views/profile/Profile.vue'
 
@@ -22,13 +22,13 @@ const routes = [
     component: Main,
     children: [
       {
-        path: 'dashboard',
+        path: 'spectrum',
         alias: '',
-        component: Dashboard,
-        name: 'Dashboard',
+        component: Spectrum,
+        name: 'Spectrum',
         meta: {
           description: 'Overview of app',
-          title: 'Dashboard',
+          title: 'Spectrum',
           requiresAuth: true
         }
       },

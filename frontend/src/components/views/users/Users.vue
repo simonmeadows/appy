@@ -5,7 +5,7 @@
 
         <div :class="addButtonClass" v-permission.if="['user', 'createUser']">
           <router-link :to="{ name: 'UserCreate' }">
-            <button class="btn btn-primary">Add User</button>
+            <button class="btn btn-primary">Add User LOL</button>
           </router-link>
         </div>
 

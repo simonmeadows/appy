@@ -50,6 +50,7 @@ import ChatBox from './components/utilities/ChatBox.vue'
 import NewGroupChat from './components/utilities/NewGroupChat.vue'
 import VueEditor from './components/utilities/VueEditor.vue'
 import VistorMap from './components/utilities/VisitorMap.vue'
+// import LineChart from './components/utilities/LineChart.vue'
 
 // Import global directives
 import vPermission from './directives/v-permission'
@@ -89,6 +90,7 @@ Vue.component('chat-box', ChatBox)
 Vue.component('new-group-chat', NewGroupChat)
 Vue.component('vue-editor', VueEditor)
 Vue.component('visitor-map', VistorMap)
+// Vue.component('line-chart', LineChart)
 Vue.component('pulse-loader', PulseLoader)
 Vue.component('vue-select', VueSelect)
 Vue.component('vue-password', VuePassword)
