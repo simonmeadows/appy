@@ -23,6 +23,7 @@
     ]
   },
   "dependencies": {
+    "apexcharts": "^2.2.1",
     "axios": "^0.15.3",
     "babel-runtime": "^5.8.0",
     "change-case": "^3.0.1",
@@ -42,6 +43,7 @@
     "v-tooltip": "^2.0.0-rc.26",
     "validator": "^9.1.2",
     "vue": "^2.5.16",
+    "vue-apexcharts": "^1.2.6",
     "vue-carousel-3d": "^0.1.19",
     "vue-chartjs": "^3.4.0",
     "vue-croppa": "^1.1.4",
