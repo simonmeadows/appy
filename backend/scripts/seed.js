@@ -38,8 +38,8 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
 
     faker.seed(4997)
 
-    const password = 'root'
-    const pin = '1234'
+    // const password = 'root'
+    // const pin = '1234'
 
     let roles = []
     let users = []
@@ -213,86 +213,14 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
     Log.log('seeding users')
     users = [
       {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        email: 'test@user.com',
-        title: faker.name.jobTitle(),
+        firstName: 'Simon',
+        lastName: 'Meadows',
+        email: 'it@warehousesound.co.uk@superadmin.com',
+        title: 'Admin',
         // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
         profileImageUrl: faker.image.avatar(),
-        password: password,
-        pin: pin,
-        role: roles[0]._id,
-        isActive: true
-      },
-      {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        email: 'test@readonlyuser.com',
-        title: faker.name.jobTitle(),
-        // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
-        profileImageUrl: faker.image.avatar(),
-        password: password,
-        pin: pin,
-        role: roles[0]._id,
-        isActive: true
-      },
-      {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        email: 'test@admin.com',
-        title: faker.name.jobTitle(),
-        // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
-        profileImageUrl: faker.image.avatar(),
-        password: password,
-        pin: pin,
-        role: roles[1]._id,
-        isActive: true
-      },
-      {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        email: 'test@readonlyadmin.com',
-        title: faker.name.jobTitle(),
-        // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
-        profileImageUrl: faker.image.avatar(),
-        password: password,
-        pin: pin,
-        role: roles[1]._id,
-        isActive: true
-      },
-      {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        email: 'test@editoradmin.com',
-        title: faker.name.jobTitle(),
-        // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
-        profileImageUrl: faker.image.avatar(),
-        password: password,
-        pin: pin,
-        role: roles[1]._id,
-        isActive: true
-      },
-      {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        email: 'test@superuseradmin.com',
-        title: faker.name.jobTitle(),
-        // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
-        profileImageUrl: faker.image.avatar(),
-        password: password,
-        pin: pin,
-        role: roles[1]._id,
-        isActive: true
-      },
-      {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        email: 'test@superadmin.com',
-        title: faker.name.jobTitle(),
-        // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
-        profileImageUrl: faker.image.avatar(),
-        password: password,
-        pin: pin,
+        password: '23WaterStreet',
+        pin: '1234',
         role: roles[2]._id,
         isActive: true
       }
