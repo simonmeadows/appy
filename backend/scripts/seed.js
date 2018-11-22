@@ -215,7 +215,7 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
       {
         firstName: 'Simon',
         lastName: 'Meadows',
-        email: 'it@warehousesound.co.uk@superadmin.com',
+        email: 'it@warehousesound.co.uk',
         title: 'Admin',
         // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
         profileImageUrl: faker.image.avatar(),

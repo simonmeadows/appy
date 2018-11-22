@@ -72,6 +72,9 @@ export const resources = {
   image: {
     alias: 'image'
   },
+  freqscan: {
+    alias: 'freqscan'
+  },
   visitor: {
     alias: 'visitor'
   },

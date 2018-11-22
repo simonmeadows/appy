@@ -4,6 +4,9 @@
      <div>
        <button v-on:click="updateChart">Update!</button>
     </div>
+    <div>
+      {{ info }}
+    </div>
   </section>
 </template>
 
@@ -11,6 +14,7 @@
 import LineChart from '../../utilities/LineChart.vue';
 import VueApexCharts from 'vue-apexcharts';
 import Vue from 'vue';
+import axios from 'axios';
 
 export default {
   name: 'Spectrum',
@@ -19,6 +23,7 @@ export default {
   },
   data() {
     return {
+      info: null,
       newMembers: {},
       client: null,
       stats: {},
@@ -46,7 +51,13 @@ export default {
           },
         },
         xaxis: {
-          type: "linear"
+          type: 'linear',
+        },
+        yaxis: {
+          min: -100,
+          max: 20,
+          seriesname: 'series-1',
+          logarithmic: false
         },
       },
       series: [
@@ -60,15 +71,15 @@ export default {
   computed: {},
   methods: {
     updateChart() {
-      const max = 90;
-      const min = 20;
-      let newData = [];
-      let newXAxis = [];
-      let freq = 470.0;
-      for (let i = 0; i < 1000; i++) {
-        freq = freq + 0.25;
-        newData.push([freq, Math.floor(80 - Math.random() * 100)]);
-      }
+      axios.get('http://localhost:8080/freqscan').then(response => {
+        this.info = response.data.docs[0].ScanData;
+        this.series = [
+          {
+            name: 'series-1',
+            data: response.data.docs[0].ScanData,
+          },
+        ];
+      });
       const colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0'];
 
       // Make sure to update the whole options config and not just a single property to allow the Vue watch catch the change.
@@ -103,12 +114,6 @@ export default {
           },
         },
       };
-      // In the same way, update the series option
-      this.series = [
-        {
-          data: newData,
-        },
-      ];
     },
   },
 };
