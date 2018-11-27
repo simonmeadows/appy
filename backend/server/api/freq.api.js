@@ -34,10 +34,22 @@ module.exports = function(server, mongoose, logger) {
         plugins: {
           'hapi-swagger': {
             responseMessages: [
-              { code: 200, message: 'Success' },
-              { code: 400, message: 'Bad Request' },
-              { code: 404, message: 'Not Found' },
-              { code: 500, message: 'Internal Server Error' }
+              {
+                code: 200,
+                message: 'Success'
+              },
+              {
+                code: 400,
+                message: 'Bad Request'
+              },
+              {
+                code: 404,
+                message: 'Not Found'
+              },
+              {
+                code: 500,
+                message: 'Internal Server Error'
+              }
             ]
           }
         }
@@ -53,10 +65,14 @@ module.exports = function(server, mongoose, logger) {
     const freqSweepHandler = async function(request, h) {
       try {
         const FreqScan = mongoose.model('freqscan')
-        let thisFreqScan = new FreqScan(request.payload)
-        await thisFreqScan.save()
 
-        return FreqScan.find()
+        if (request.payload._id) {
+        } else {
+          let thisFreqScan = new FreqScan(request.payload)
+          await thisFreqScan.save()
+
+          return FreqScan.find()
+        }
       } catch (err) {
         errorHelper.handleError(err, Log)
       }
@@ -71,8 +87,17 @@ module.exports = function(server, mongoose, logger) {
         tags: ['api', 'FreqSweep'],
         validate: {
           payload: {
+            _id: Joi.string()
+              .optional()
+              .allow(null),
             StartMHZ: Joi.number(),
             StopMHZ: Joi.number(),
+            ScannerId: Joi.string()
+              .optional()
+              .allow(null),
+            ScannerLocation: Joi.string()
+              .optional()
+              .allow(null),
             ScanTime: Joi.date(),
             ScanData: Joi.array().items(Joi.array().items(Joi.number()))
           }
@@ -80,10 +105,22 @@ module.exports = function(server, mongoose, logger) {
         plugins: {
           'hapi-swagger': {
             responseMessages: [
-              { code: 200, message: 'Success' },
-              { code: 400, message: 'Bad Request' },
-              { code: 404, message: 'Not Found' },
-              { code: 500, message: 'Internal Server Error' }
+              {
+                code: 200,
+                message: 'Success'
+              },
+              {
+                code: 400,
+                message: 'Bad Request'
+              },
+              {
+                code: 404,
+                message: 'Not Found'
+              },
+              {
+                code: 500,
+                message: 'Internal Server Error'
+              }
             ]
           }
         }
@@ -117,15 +154,29 @@ module.exports = function(server, mongoose, logger) {
         description: 'Remove all frequency sweeps',
         tags: ['api', 'FreqSweep'],
         validate: {
-          payload: { id: Joi.string().allow(null) }
+          payload: {
+            id: Joi.string().allow(null)
+          }
         },
         plugins: {
           'hapi-swagger': {
             responseMessages: [
-              { code: 200, message: 'Success' },
-              { code: 400, message: 'Bad Request' },
-              { code: 404, message: 'Not Found' },
-              { code: 500, message: 'Internal Server Error' }
+              {
+                code: 200,
+                message: 'Success'
+              },
+              {
+                code: 400,
+                message: 'Bad Request'
+              },
+              {
+                code: 404,
+                message: 'Not Found'
+              },
+              {
+                code: 500,
+                message: 'Internal Server Error'
+              }
             ]
           }
         }

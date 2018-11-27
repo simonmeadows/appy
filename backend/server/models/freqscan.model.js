@@ -10,6 +10,8 @@ module.exports = function(mongoose) {
     StartMHZ: Number,
     StopMHZ: Number,
     ScanTime: Date,
+    ScannerId: String,
+    ScannerLocation: String,
     ScanData: [[Number, Number]]
   })
   Schema.statics = {
