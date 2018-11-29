@@ -1,9 +1,8 @@
 import Main from '../components/views/main/Main.vue'
 
-import Spectrum from '../components/views/spectrum/Spectrum.vue'
-
 import Profile from '../components/views/profile/Profile.vue'
 
+import spectrumRoutes from './spectrum.route'
 import userRoutes from './users.route'
 import roleRoutes from './roles.route'
 import groupRoutes from './groups.route'
@@ -22,17 +21,6 @@ const routes = [
     component: Main,
     children: [
       {
-        path: 'spectrum',
-        alias: '',
-        component: Spectrum,
-        name: 'Spectrum',
-        meta: {
-          description: 'Overview of app',
-          title: 'Spectrum',
-          requiresAuth: true
-        }
-      },
-      {
         path: 'profile',
         component: Profile,
         name: 'Profile',
@@ -42,6 +30,7 @@ const routes = [
           requiresAuth: true
         }
       },
+      ...spectrumRoutes,
       ...userRoutes,
       ...roleRoutes,
       ...groupRoutes,

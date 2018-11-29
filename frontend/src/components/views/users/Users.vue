@@ -83,7 +83,7 @@ export default {
       this.$refs.userTable.toggleChildRow(data.row._id)
     },
     onLoaded () {
-      this.userTable = this.$refs.userTable
+      this.userTable = this.$refs.userTable;
     }
   }
 }

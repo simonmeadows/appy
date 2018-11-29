@@ -16,8 +16,8 @@ const Config = require('../config')
 
 const restHapiConfig = Config.get('/restHapiConfig')
 const USER_ROLES = Config.get('/constants/USER_ROLES')
-const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
-;(async function seed() {
+const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES');
+(async function seed() {
   RestHapi.config.loglevel = 'DEBUG'
   const Log = RestHapi.getLogger('seed')
   try {
@@ -56,8 +56,7 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
     await dropCollections(models)
     models = await updatePermissions(models)
     Log.log('seeding roles')
-    roles = [
-      {
+    roles = [{
         name: USER_ROLES.USER,
         rank: 2,
         description: 'A standard user account.'
@@ -76,8 +75,7 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
     roles = await RestHapi.create(models.role, roles, Log)
 
     Log.log('seeding permissions')
-    permissions = [
-      {
+    permissions = [{
         name: 'root',
         description: 'Access to all endpoints',
         assignScope: [USER_ROLES.SUPER_ADMIN]
@@ -184,19 +182,16 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
       },
       {
         name: 'readAvailableNotifications',
-        description:
-          'Can get the permissions available for the current user to assign',
+        description: 'Can get the permissions available for the current user to assign',
         assignScope: [USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN]
       }
     ]
     permissions = await RestHapi.create(models.permission, permissions, Log)
 
     Log.log('seeding groups')
-    groups = [
-      {
+    groups = [{
         name: 'Read Only',
-        description:
-          'Group that excludes all permissions except for Admin level read permissions.'
+        description: 'Group that excludes all permissions except for Admin level read permissions.'
       },
       {
         name: 'Editor',
@@ -204,27 +199,24 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
       },
       {
         name: 'Super User',
-        description:
-          'Group with full permissions except root. Role restrictions remain.'
+        description: 'Group with full permissions except root. Role restrictions remain.'
       }
     ]
     groups = await RestHapi.create(models.group, groups, Log)
 
     Log.log('seeding users')
-    users = [
-      {
-        firstName: 'Simon',
-        lastName: 'Meadows',
-        email: 'it@warehousesound.co.uk',
-        title: 'Admin',
-        // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
-        profileImageUrl: faker.image.avatar(),
-        password: '23WaterStreet',
-        pin: '1234',
-        role: roles[2]._id,
-        isActive: true
-      }
-    ]
+    users = [{
+      firstName: 'Simon',
+      lastName: 'Meadows',
+      email: 'it@warehousesound.co.uk',
+      title: 'Admin',
+      // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
+      profileImageUrl: faker.image.avatar(),
+      password: '23WaterStreet',
+      pin: '1234',
+      role: roles[2]._id,
+      isActive: true
+    }]
 
     request = {
       method: 'POST',
@@ -232,8 +224,12 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
       params: {},
       query: {},
       payload: users,
-      credentials: { scope: ['root', USER_ROLES.SUPER_ADMIN] },
-      headers: { authorization: 'Bearer' }
+      credentials: {
+        scope: ['root', USER_ROLES.SUPER_ADMIN]
+      },
+      headers: {
+        authorization: 'Bearer'
+      }
     }
 
     injectOptions = RestHapi.testHelper.mockInjection(request)
@@ -244,7 +240,7 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
 
     promises = []
 
-    let addVisitor = function(visitor) {
+    let addVisitor = function (visitor) {
       let rand = Math.random()
 
       let browser = 'Other'
@@ -287,7 +283,7 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
 
     result = await RestHapi.list(models.permission, {}, Log)
     permissions = result.docs
-    permissionNames = permissions.map(function(p) {
+    permissionNames = permissions.map(function (p) {
       return p.name
     })
 
@@ -312,14 +308,14 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
     ]
 
     let userDocumentPermissions = permissions
-      .filter(function(p) {
+      .filter(function (p) {
         // We start with permissions Admins can assign so that they can edit the user permissions
         return p.assignScope.indexOf(USER_ROLES.ADMIN) > -1
       })
-      .filter(function(p) {
+      .filter(function (p) {
         return p.name.includes('Document')
       })
-      .map(function(p) {
+      .map(function (p) {
         return {
           state: PERMISSION_STATES.INCLUDED,
           childId: p._id
@@ -327,14 +323,14 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
       })
 
     let userImagePermissions = permissions
-      .filter(function(p) {
+      .filter(function (p) {
         // We start with permissions Admins can assign so that they can edit the user permissions
         return p.assignScope.indexOf(USER_ROLES.ADMIN) > -1
       })
-      .filter(function(p) {
+      .filter(function (p) {
         return p.name.includes('Image')
       })
-      .map(function(p) {
+      .map(function (p) {
         return {
           state: PERMISSION_STATES.INCLUDED,
           childId: p._id
@@ -342,10 +338,10 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
       })
 
     let userPermissions = userBasePermissionNames
-      .map(function(permissionName) {
+      .map(function (permissionName) {
         return {
           state: PERMISSION_STATES.INCLUDED,
-          childId: permissions.find(function(p) {
+          childId: permissions.find(function (p) {
             return p.name === permissionName
           })._id
         }
@@ -370,10 +366,10 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
 
     // Admins have access to any permission they can assign.
     adminPermissions = permissions
-      .filter(function(p) {
+      .filter(function (p) {
         return p.assignScope.indexOf(USER_ROLES.ADMIN) > -1
       })
-      .map(function(p) {
+      .map(function (p) {
         return {
           state: PERMISSION_STATES.INCLUDED,
           childId: p._id
@@ -402,14 +398,12 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
         roles[2]._id,
         models.permission,
         'permissions',
-        [
-          {
-            state: PERMISSION_STATES.INCLUDED,
-            childId: permissions.find(function(p) {
-              return p.name === 'root'
-            })._id
-          }
-        ],
+        [{
+          state: PERMISSION_STATES.INCLUDED,
+          childId: permissions.find(function (p) {
+            return p.name === 'root'
+          })._id
+        }],
         Log
       )
     )
@@ -420,14 +414,14 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
 
     // Read Only group permissions
     let readOnlyExcludedPermissions = permissions
-      .filter(function(p) {
+      .filter(function (p) {
         // We start with permissions Admins can assign so that they will also be able to assign the group
         return p.assignScope.indexOf(USER_ROLES.ADMIN) > -1
       })
-      .filter(function(p) {
+      .filter(function (p) {
         return !(p.name.includes('read') || p.name.includes('get'))
       })
-      .map(function(p) {
+      .map(function (p) {
         return {
           state: PERMISSION_STATES.EXCLUDED,
           childId: p._id
@@ -450,14 +444,14 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
 
     // Editor group permissions
     let createForbiddenPermission = permissions
-      .filter(function(p) {
+      .filter(function (p) {
         // We start with permissions Admins can assign so that they will also be able to assign the group
         return p.assignScope.indexOf(USER_ROLES.ADMIN) > -1
       })
-      .filter(function(p) {
+      .filter(function (p) {
         return p.name.includes('create')
       })
-      .map(function(p) {
+      .map(function (p) {
         return {
           state: PERMISSION_STATES.FORBIDDEN,
           childId: p._id
@@ -480,13 +474,13 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
 
     // Super User group permissions
     let includedPermissions = permissionNames
-      .filter(function(permissionName) {
+      .filter(function (permissionName) {
         return permissionName !== 'root'
       })
-      .map(function(permissionName) {
+      .map(function (permissionName) {
         return {
           state: PERMISSION_STATES.INCLUDED,
-          childId: permissions.find(function(p) {
+          childId: permissions.find(function (p) {
             return p.name === permissionName
           })._id
         }
@@ -507,46 +501,46 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES')
     promises = []
 
     // Assign groups to users
-    promises.push(
-      RestHapi.addMany(
-        models.user,
-        users[1]._id,
-        models.group,
-        'groups',
-        [groups[0]._id],
-        Log
-      )
-    )
-    promises.push(
-      RestHapi.addMany(
-        models.user,
-        users[3]._id,
-        models.group,
-        'groups',
-        [groups[0]._id],
-        Log
-      )
-    )
-    promises.push(
-      RestHapi.addMany(
-        models.user,
-        users[4]._id,
-        models.group,
-        'groups',
-        [groups[1]._id],
-        Log
-      )
-    )
-    promises.push(
-      RestHapi.addMany(
-        models.user,
-        users[5]._id,
-        models.group,
-        'groups',
-        [groups[2]._id],
-        Log
-      )
-    )
+    // promises.push(
+    //   RestHapi.addMany(
+    //     models.user,
+    //     users[1]._id,
+    //     models.group,
+    //     'groups',
+    //     [groups[0]._id],
+    //     Log
+    //   )
+    // )
+    // promises.push(
+    //   RestHapi.addMany(
+    //     models.user,
+    //     users[3]._id,
+    //     models.group,
+    //     'groups',
+    //     [groups[0]._id],
+    //     Log
+    //   )
+    // )
+    // promises.push(
+    //   RestHapi.addMany(
+    //     models.user,
+    //     users[4]._id,
+    //     models.group,
+    //     'groups',
+    //     [groups[1]._id],
+    //     Log
+    //   )
+    // )
+    // promises.push(
+    //   RestHapi.addMany(
+    //     models.user,
+    //     users[5]._id,
+    //     models.group,
+    //     'groups',
+    //     [groups[2]._id],
+    //     Log
+    //   )
+    // )
 
     await Promise.all(promises)
 

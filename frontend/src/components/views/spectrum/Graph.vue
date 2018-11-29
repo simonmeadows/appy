@@ -1,32 +1,20 @@
 <template>
-<section class="content spectrum">
-    <eventList></eventList>
+<section class="content graph">
     <apexcharts width="100%" :type="type" :options="chartOptions" :series="series"></apexcharts>
-    <div>
-        <button v-on:click="updateChart">Update!</button>
-    </div>
-    <div>
-        {{ info }}
-    </div>
 </section>
 </template>
 
 <script>
-import EventList from './EventList.vue';
 import LineChart from '../../utilities/LineChart.vue';
 import VueApexCharts from 'vue-apexcharts';
 import Vue from 'vue';
 import axios from 'axios';
 
 export default {
-    name: 'Spectrum',
+    name: 'Graph',
     components: {
         apexcharts: VueApexCharts,
-        eventList: EventList
     },
-    props:[
-      "scanPoints"
-    ],
     data() {
         return {
             info: null,

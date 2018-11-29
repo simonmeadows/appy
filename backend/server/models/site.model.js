@@ -3,16 +3,14 @@
 // const RestHapi = require('rest-hapi')
 // const errorHelper = require('../utilities/error-helper')
 
-module.exports = function(mongoose) {
-  var modelName = 'freqscan'
+module.exports = function (mongoose) {
+  var modelName = 'site'
   // var Types = mongoose.Schema.Types
   var Schema = new mongoose.Schema({
-    StartMHZ: Number,
-    StopMHZ: Number,
-    ScanTime: Date,
-    ScannerId: String,
-    ScannerLocation: String,
-    ScanData: [[Number, Number]]
+    Name: String,
+    Address: String,
+    Event_id: String,
+    Expand: Boolean
   })
   Schema.statics = {
     collectionName: modelName,
