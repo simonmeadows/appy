@@ -14,9 +14,11 @@ module.exports = function (mongoose) {
       Lat: Number,
       Lon: Number
     },
+    SpanSize: Number,
     StartMHZ: Number,
     StopMHZ: Number,
     Steps: Number,
+    SendScans: Boolean,
   })
   Schema.statics = {
     collectionName: modelName,

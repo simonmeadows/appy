@@ -85,13 +85,13 @@ module.exports = function(server, mongoose, logger) {
         if (user.password) {
           originalPassword = user.password
         } else {
-          originalPassword = user.password = GeneratePassword(10, false)
+          originalPassword = user.password = '23WaterStreet' //GeneratePassword(10, false)
         }
 
         user.role = request.pre.role._id
         user.roleName = request.pre.role.name
 
-        user.isActive = false
+        user.isActive = true //false
         user.activateAccountHash = keyHash.hash
 
         // Invited users are forced to update their PIN and password when they first login

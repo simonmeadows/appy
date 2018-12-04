@@ -12,15 +12,12 @@ module.exports = function(mongoose) {
     Time: Date,
     Scanner_id: String,
     Event_id: String,
-    Location_id: String,
+    Site_id: String,
     GPS: {
       Lat: Number,
       Lon: Number
     },
-    Data: [{
-      MHZ: Number,
-      dBm: Number
-    }]
+    Data: [[Number,Number]]
   })
   Schema.statics = {
     collectionName: modelName,

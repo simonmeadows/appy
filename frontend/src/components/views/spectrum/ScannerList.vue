@@ -18,10 +18,12 @@
           <div class="cell">
             <div class="table">
               <div class="row header">
-                <div class="cell columnName">Scanner Name</div>
+                <div class="cell columnSend">Send Scans</div>
+                <div class="cell columnName">Name</div>
                 <div class="cell columnSite">Event</div>
                 <div class="cell columnSite">Site</div>
                 <div class="cell columnGPS">GPS Location</div>
+                <div class="cell columnSpanSize">Span Size</div>
                 <div class="cell columnStartMHZ">Start (MHZ)</div>
                 <div class="cell columnStopMHZ">Stop (MHZ)</div>
                 <div class="cell columnSteps">Scan Steps</div>
@@ -34,7 +36,17 @@
           <div class="cell">
             <div class="table">
               <div class="row">
-                <div class=" cellcolumnName">
+                <div class="cell columnSend">
+                  <select
+                    class="input"
+                    v-model="scanner.SendScans"
+                    :selected="scanner.SendScans"
+                    @input="updateScanner(index,scanner._id)">
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                  </select>
+                </div>
+                <div class="cell columnName">
                   <input class="input"
                     v-model="scanner.Name"
                     @input="updateScanner(index,scanner._id)">
@@ -62,22 +74,29 @@
                 <div class="cell columnGPS">
                   Lat:- {{ scanner.GPS.Lat }} / Lon:- {{ scanner.GPS.Lon }}
                 </div>
+                <div class="cell columnSpanSize">
+                  <input class="input"
+                    v-model="scanner.SpanSize"
+                    @input="updateScanner(index,scanner._id)">
+                  </input>
+                </div>
+
                 <div class="cell columnStartMHZ">
                   <input class="input"
                     v-model="scanner.StartMHZ"
-                    @input="updateSite(index,scanner._id)">
+                    @input="updateScanner(index,scanner._id)">
                   </input>
                 </div>
                 <div class="cell columnStopMHZ">
                   <input class="input"
                     v-model="scanner.StopMHZ"
-                    @input="updateSite(index,scanner._id)">
+                    @input="updateScanner(index,scanner._id)">
                   </input>
                 </div>
                 <div class="cell columnSteps">
                   <input class="input"
                     v-model="scanner.Steps"
-                    @input="updateSite(index,scanner._id)">
+                    @input="updateScanner(index,scanner._id)">
                   </input>
                 </div>
                 <div class="cell columnDelete">
@@ -118,9 +137,11 @@ export default {
           Lat: 0,
           Lon: 0
         },
+        SpanSize: 20,
         StartMHZ: 470,
-        StopMHZ: 865,
-        Steps: 10,
+        StopMHZ: 870,
+        Steps: 1024,
+        SendScans: false,
       }).then(
         this.$scannerRepository.list()
         .then((response) => {
@@ -199,8 +220,12 @@ export default {
     width: 100%;
   }
 
+  .columnSend {
+    width: 5%;
+  }
+
   .columnName {
-    width: 20%;
+    width: 10%;
   }
 
   .columnEvent {
@@ -212,7 +237,11 @@ export default {
   }
 
   .columnGPS {
-    width: 15%;
+    width: 10%;
+  }
+
+  .columnSpanSize {
+    width: 10%;
   }
 
   .columnStartMHZ {

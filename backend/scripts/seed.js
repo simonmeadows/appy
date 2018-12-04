@@ -216,6 +216,18 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES');
       pin: '1234',
       role: roles[2]._id,
       isActive: true
+    },
+    {
+      firstName: 'Scanner',
+      lastName: 'Hertz',
+      email: 'hertz@warehousesound.co.uk',
+      title: 'Hertz',
+      // profileImageUrl: 'https://www.gravatar.com/avatar/' + Mongoose.Types.ObjectId().toString() + '?r=PG&d=robohash',
+      profileImageUrl: faker.image.avatar(),
+      password: '23WaterStreet',
+      pin: '1234',
+      role: roles[0]._id,
+      isActive: true
     }]
 
     request = {
@@ -531,16 +543,16 @@ const PERMISSION_STATES = Config.get('/constants/PERMISSION_STATES');
     //     Log
     //   )
     // )
-    // promises.push(
-    //   RestHapi.addMany(
-    //     models.user,
-    //     users[5]._id,
-    //     models.group,
-    //     'groups',
-    //     [groups[2]._id],
-    //     Log
-    //   )
-    // )
+     promises.push(
+       RestHapi.addMany(
+         models.user,
+         users[0]._id,
+         models.group,
+         'groups',
+         [groups[2]._id],
+         Log
+       )
+     )
 
     await Promise.all(promises)
 
