@@ -157,10 +157,6 @@ export default {
 
     updateScanner(index, _id, scanner) {
       this.$scannerRepository.update(_id, this.scanners[index])
-        .then(this.$scannerRepository.list()
-          .then((response) => {
-            this.scanners = response.data.docs
-          }));
     },
 
     deleteScanner(scanner) {

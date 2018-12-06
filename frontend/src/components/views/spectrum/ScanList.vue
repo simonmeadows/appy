@@ -118,19 +118,22 @@ export default {
 
     showScan(scan) {
       if (!scan.Extra.Show) {
+        this.$scandataRepository.find(scan.ScanData).then(response=>{
         this.graphs.push({
           name: scan.Time,
+          _id: scan._id,
           type: 'line',
           lineStyle:{
             width: 1,
           },
-          data: scan.Data,
+          data: response.data.Data,
           symbol: 'none',
           sampling: 'max',
           animation: false,
         });
+        })
       } else  {
-        this.graphs.splice(this.graphs.map(e=>{return e.name}).indexOf(scan.Time))
+        this.graphs.splice(this.graphs.map(e=>{return e._id}).indexOf(scan._id))
         let temp = this.graphs
         this.graphs = []
         this.graphs = temp
@@ -140,6 +143,9 @@ export default {
 
     deleteScan(scan) {
       this.$scanRepository.deleteOne(scan._id).then(() => {
+        this.refreshScan();
+      });
+      this.$scandataRepository.deleteOne(scan.ScanData).then(() => {
         this.refreshScan();
       });
     },
@@ -155,6 +161,23 @@ export default {
         this.sites = result.data.docs;
       });
       this.refreshScan();
+      this.graphs.push({
+          name: 'Ranges',
+          _id: 'none',
+          type: 'line',
+          lineStyle:{
+            width: 1,
+          },
+          markArea:{
+            data:[
+              {xAxis:606},{xAxis:614}
+            ]
+          },
+          symbol: 'none',
+          sampling: 'max',
+          animation: false,
+        });
+
     },
   },
 };

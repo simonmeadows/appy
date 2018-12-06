@@ -5,7 +5,7 @@
 
 module.exports = function (mongoose) {
   var modelName = 'scanner'
-  // var Types = mongoose.Schema.Types
+  var Types = mongoose.Schema.Types
   var Schema = new mongoose.Schema({
     Name: String,
     Event_id: String,

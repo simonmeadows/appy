@@ -28,6 +28,12 @@ export default {
         toolbox: {
           show: true,
         },
+        axisPointer: {
+          show: true,
+          type: 'line',
+          triggerTooltip: false,
+
+        },
         dataZoom: [
           {
             type: 'inside',
@@ -40,10 +46,12 @@ export default {
         ],
         tooltip: {},
         xAxis: {
+          name: 'Frequency (MHz)',
           min: 20,
           max: 2700,
         },
         yAxis: {
+          name: 'Power (dBm)',
           min: -110,
           max: 20,
         },

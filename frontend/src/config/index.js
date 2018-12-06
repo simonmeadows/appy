@@ -73,8 +73,22 @@ export const resources = {
     alias: 'image'
   },
   scan: {
-    alias: 'scan'
+    alias: 'scan',
+    associations: {
+      scandata: {
+        alias: 'scandata'
+      }
+    }
   },
+  scandata: {
+    alias: 'scandata',
+    associations: {
+      scan: {
+        alias: 'scan'
+      }
+    }
+  },
+
   event: {
     alias: 'event'
   },
